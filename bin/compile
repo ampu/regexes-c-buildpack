@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+set -e
+set -o pipefail
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+cd $BUILD_DIR
+
+if [[ -f "$BUILD_DIR/backend/engines/c/match-via-pcre/build-c-for-heroku.sh" ]]; then
+  "$BUILD_DIR/backend/engines/c/match-via-pcre/build-c-for-heroku.sh" | indent
+fi
+
+if [[ -f "$BUILD_DIR/backend/engines/c/match-via-pcre2/build-c-for-heroku.sh" ]]; then
+  "$BUILD_DIR/backend/engines/c/match-via-pcre2/build-c-for-heroku.sh" | indent
+fi
+

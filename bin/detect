@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
+BUILD_DIR=$1
+
+if [[ -f "$BUILD_DIR/backend/engines/c/match-via-pcre/build-c-for-heroku.sh" \
+   || -f "$BUILD_DIR/backend/engines/c/match-via-pcre2/build-c-for-heroku.sh" ]]; then
+  echo "matcher-c" && exit 0
+else
+  echo "no" && exit 1
+fi
